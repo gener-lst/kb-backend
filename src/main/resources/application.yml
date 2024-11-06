@@ -1,0 +1,8 @@
+#spring:
+#  application:
+#  it'me KB
+#  datasource:
+#    url: jdbc:mysql://127.0.0.1:3306/kb_account
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: 3209
