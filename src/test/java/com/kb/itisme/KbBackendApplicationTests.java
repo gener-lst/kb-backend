@@ -1,4 +1,4 @@
-package com.example.kb_backend;
+package com.kb.itisme;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

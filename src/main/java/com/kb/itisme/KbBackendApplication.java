@@ -1,4 +1,4 @@
-package com.example.kb_backend;
+package com.kb.itisme;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
