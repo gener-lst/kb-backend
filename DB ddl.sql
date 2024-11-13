@@ -23,7 +23,7 @@ CREATE TABLE `custom_page`
     `user_number` bigint(20)   NOT NULL primary KEY,
     `page_name`   varchar(255) NULL,
     `layout_data` json         NULL,
-    'image_url'   varchar(255) NULL,
+    `image_url`   varchar(255) NULL,
     FOREIGN KEY (user_number) REFERENCES user (user_number)
 );
 
