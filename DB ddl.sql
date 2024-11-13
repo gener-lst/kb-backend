@@ -4,7 +4,7 @@ USE IT_KB;
 CREATE TABLE `user`
 (
     `user_number`   bigint(20)  NOT NULL auto_increment primary key,
-    `user_id`       varchar(20) NULL,
+    `user_id`       varchar(20) NULL unique,
     `user_password` varchar(20) NULL,
     `name`          varchar(20) NULL
 );
@@ -20,7 +20,8 @@ CREATE TABLE `product`
 
 CREATE TABLE `custom_page`
 (
-    `user_number` bigint(20)   NOT NULL primary KEY,
+    `page_id`     bigint(20)   NOT NULL auto_increment primary KEY,
+    `user_number` bigint(20)   NOT NULL unique,
     `page_name`   varchar(255) NULL,
     `layout_data` json         NULL,
     `image_url`   varchar(255) NULL,
@@ -35,13 +36,13 @@ CREATE TABLE `custom_page`
 # 	`가로길이`
 # 	`다중페이지번호`
 # 	`위젯이미지`
-# 	`위젯설정`
+# 	`위젯설정`?
 
 CREATE TABLE `custom_community`
 (
-    `user_number` bigint(20) NOT NULL primary KEY,
+    `page_id` bigint(20) NOT NULL primary KEY,
     `heart`       bigint(20) NULL,
-    FOREIGN KEY (user_number) REFERENCES custom_page (user_number)
+    FOREIGN KEY (page_id) REFERENCES custom_page (page_id)
 );
 
 CREATE TABLE `account`
