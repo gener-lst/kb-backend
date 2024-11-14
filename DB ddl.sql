@@ -1,12 +1,12 @@
-create database IT_KB;
-USE IT_KB;
+create database kbproject;
+USE kbproject;
 
 CREATE TABLE `user`
 (
     `user_number`   bigint(20)  NOT NULL auto_increment primary key,
-    `user_id`       varchar(20) NULL unique,
-    `user_password` varchar(20) NULL,
-    `name`          varchar(20) NULL
+    `user_id`       varchar(20) NOT NULL unique,
+    `user_password` varchar(20) NOT NULL,
+    `name`          varchar(20) NOT NULL
 );
 
 CREATE TABLE `product`
