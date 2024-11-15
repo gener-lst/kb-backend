@@ -15,7 +15,9 @@ CREATE TABLE `product`
     `product_type` char(1)      NULL,
     `product_name` varchar(255) NULL,
     `image_path`   varchar(255) NULL,
-    `product_url`  varchar(255) NULL
+    `product_url`  varchar(255) NULL,
+    `benefit` varchar(255) NULL,
+    `product_code` varchar(255) NULL
 );
 
 CREATE TABLE `custom_page`
