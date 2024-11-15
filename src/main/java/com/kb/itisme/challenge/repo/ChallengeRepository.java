@@ -1,0 +1,13 @@
+package com.kb.itisme.challenge.repo;
+
+import com.kb.itisme.challenge.domain.Challenge;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
+//    List<Challenge> findAllByChallengesIn(List<String> challenge);
+    List<Challenge> updateChallengesByChallengeStatus(Challenge challengeStatus);
+}
