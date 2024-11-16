@@ -1,21 +1,23 @@
 package com.kb.itisme.product.controller;
 
+import com.kb.itisme.product.controller.BenefitCrawl;
 import com.kb.itisme.product.dto.Product;
 import com.kb.itisme.product.repository.ProductRepository;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import java.time.Duration;
-import java.util.List;
-
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Duration;
+import java.util.List;
 
 @Component
 public class KBCrawl {
@@ -28,84 +30,100 @@ public class KBCrawl {
 
     @Transactional
     public void startCrawling() {
-        // WebDriverManager를 사용하여 ChromeDriver 130 버전 자동 설정
-        WebDriverManager.chromedriver().browserVersion("130").setup();  // Chrome 130 버전
-
-        // 크롬 옵션 설정
+        WebDriverManager.chromedriver().browserVersion("130").setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--disable-gpu");
         options.addArguments("--window-size=1920x1080");
-        options.addArguments("--lang=ko");  // 한글로 설정
-        options.addArguments("--disable-web-security"); // SameSite None 우회
+        options.addArguments("--lang=ko");
 
-        WebDriver driver = new ChromeDriver(options);
-
+        WebDriver driver = null;
         try {
-            // 페이지 URL 목록
-            String[] urls = {
-                    "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0047?pageNo=1&cateIdx=1",
-                    "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0047?pageNo=1&cateIdx=7",
-                    "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0047?pageNo=1&cateIdx=5",
-                    "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0047?pageNo=1&cateIdx=2",
-                    "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0047?pageNo=1&cateIdx=3",
-                    "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0047?pageNo=1&cateIdx=10",
-                    "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0047?pageNo=1&cateIdx=8",
-                    "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0047?pageNo=1&cateIdx=9"
-            };
+            driver = new ChromeDriver(options);
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
-            // 각 URL에 대해 크롤링
+            String[] urls = getUrls();
+
             for (String url : urls) {
-                driver.get(url);
-
-                // 페이지 로드 대기
-                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-                wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div.card-box__item")));
-
-                // 카드 정보 추출
-                extractCardInfo(driver);
+                try {
+                    driver.manage().deleteAllCookies();
+                    driver.get(url);
+                    wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div.card-box__item")));
+                    extractCardInfo(driver);
+                } catch (Exception e) {
+                    System.err.println("Error processing URL: " + url + " -> " + e.getMessage());
+                }
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        }  catch (Exception e) {
+            System.err.println("Error initializing WebDriver: " + e.getMessage());
         } finally {
-            // 브라우저 종료
-            driver.quit();
+            if (driver != null) {
+                driver.quit();
+            }
         }
     }
 
-    // 카드 정보 추출 메서드
-    public void extractCardInfo(WebDriver driver) {
-        // 카드 리스트 추출
+    private String[] getUrls() {
+        return new String[]{
+                "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0047?pageNo=1&cateIdx=1",
+                "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0047?pageNo=1&cateIdx=7",
+                "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0047?pageNo=1&cateIdx=5",
+                "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0047?pageNo=1&cateIdx=2",
+                "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0047?pageNo=1&cateIdx=3",
+                "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0047?pageNo=1&cateIdx=10",
+                "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0047?pageNo=1&cateIdx=8",
+                "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0047?pageNo=1&cateIdx=9"
+        };
+    }
+
+    private void extractCardInfo(WebDriver driver) {
         List<WebElement> cardItems = driver.findElements(By.cssSelector("div.card-box__item"));
 
-        // 카드 정보를 추출하고 출력
         for (WebElement cardItem : cardItems) {
-            String cardName = cardItem.findElement(By.cssSelector("h3.tit-dep4")).getText();  // 카드 이름
-            String cardDescription = cardItem.findElement(By.cssSelector("p.badge--txt.pl0")).getText();  // 카드 설명
-            String cardImageUrl = cardItem.findElement(By.cssSelector("img")).getAttribute("src");  // 카드 이미지 URL
-            String productUrl = "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?mainCC=a&cooperationcode=" + cardItem.findElement(By.cssSelector("a.linkDetail")).getAttribute("onclick").split("'")[1]; // 카드 URL
+            try {
+                // 카드 이름
+                String cardName = cardItem.findElement(By.cssSelector("h3.tit-dep4")).getText();
 
-            String productCode = cardItem.findElement(By.cssSelector("a.linkDetail")).getAttribute("onclick").split("'")[1];
+                // 제품 코드
+                String productCode = cardItem.findElement(By.cssSelector("a.linkDetail"))
+                        .getAttribute("onclick").split("'")[1];
 
-            // 혜택 크롤링 후 benefit 설정
-            String benefit = String.valueOf(benefitCrawl.benefitCrawling(productCode)); // Benefit 반환값을 받는다
+                // 제품 URL
+                String productUrl = "https://m.kbcard.com/CRD/DVIEW/MCAMCXHIACRC0002?mainCC=a&cooperationcode=" + productCode;
 
-            // 중복 데이터가 없으면 저장
-            if (!productRepository.existsByProductUrl(productUrl)) {
+                // 이미지 URL
+                String imagePath = cardItem.findElement(By.cssSelector("img")).getAttribute("src");
+
+                // 데이터베이스에 존재 여부 확인
+                if (productRepository.existsByProductCode(productCode)) {
+                    continue; // 크롤링 건너뛰기
+                }
+
+                // 새 데이터 저장 로직
                 Product product = new Product();
-                product.setProductType("1"); // 예시로 1 설정
                 product.setProductName(cardName);
-                product.setImagePath(cardImageUrl);
-                product.setProductUrl(productUrl);
+                product.setProductType("1");
                 product.setProductCode(productCode);
-                product.setBenefit(benefit); // benefit 설정
-                productRepository.save(product);
+                product.setProductUrl(productUrl);
+                product.setImagePath(imagePath); // 이미지 URL 추가
+                product.setBenefit(benefitCrawl.benefitCrawling(productCode).toString());
 
-                System.out.println("Product added: " + cardName);
-            } else {
-                System.out.println("Product already exists: " + cardName);
+                saveProduct(product);
+            } catch (Exception e) {
+                System.err.println("Error processing card item: " + e.getMessage());
             }
+        }
+    }
+
+
+    @Transactional
+    public void saveProduct(Product product) {
+        try {
+            if (!productRepository.existsByProductCode(product.getProductCode())) {
+                productRepository.save(product);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

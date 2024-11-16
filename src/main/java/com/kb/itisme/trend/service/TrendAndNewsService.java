@@ -113,7 +113,7 @@ public class TrendAndNewsService {
             for (JsonNode result : root) {
                 String groupName = result.path("title").asText();
                 for (JsonNode data : result.path("data")) {
-                    if (data.path("ratio").asDouble() == 100.0) {
+                    if (data.path("ratio").asDouble() == 100.0 && data.path("ratio").asDouble() >= 80.0) {
                         keywordsWithGroupNames.put(groupName, result.path("keywords").get(0).asText());
                         break;
                     }

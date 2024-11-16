@@ -10,7 +10,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:5174") // 프론트엔드 포트를 지정
-                .allowedMethods("GET", "POST");
+                .allowedOrigins("http://localhost:5173") // 프론트엔드 포트를 지정
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowCredentials(true);
     }
 }
