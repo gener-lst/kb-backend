@@ -29,7 +29,7 @@ dependencies {
 	implementation 'org.seleniumhq.selenium:selenium-chrome-driver:4.19.1'   // 최신 Selenium 버전
 // https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
 	implementation 'io.github.bonigarcia:webdrivermanager:5.9.2'
-	implementation 'org.seleniumhq.selenium:selenium-devtools-v130:4.19.1'
+	implementation 'org.seleniumhq.selenium:selenium-devtools-v123:4.19.1'
 	implementation 'org.jsoup:jsoup:1.15.4'
 
 

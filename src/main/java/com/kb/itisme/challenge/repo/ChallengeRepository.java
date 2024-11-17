@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
 //    List<Challenge> findAllByChallengesIn(List<String> challenge);
 //    List<Challenge> updateChallengesByChallengeStatus(Challenge challengeStatus);
