@@ -69,7 +69,7 @@ public class TrendAndNewsService {
                 while ((line = br.readLine()) != null) {
                     errorResponse.append(line);
                 }
-                throw new RuntimeException("API 요청 오류: " + responseCode + " - " + errorResponse.toString());
+                throw new RuntimeException("API 요청 오류: " + responseCode + " - " + errorResponse);
             }
         }
     }
@@ -113,7 +113,7 @@ public class TrendAndNewsService {
             for (JsonNode result : root) {
                 String groupName = result.path("title").asText();
                 for (JsonNode data : result.path("data")) {
-                    if (data.path("ratio").asDouble() == 100.0) {
+                    if (data.path("ratio").asDouble() == 100.0 && data.path("ratio").asDouble() >= 80.0) {
                         keywordsWithGroupNames.put(groupName, result.path("keywords").get(0).asText());
                         break;
                     }
@@ -131,7 +131,7 @@ public class TrendAndNewsService {
     // 2. 뉴스 API에서 최고 검색어와 관련된 뉴스 가져오기
     public List<String> getRelatedNews(String keyword) throws Exception {
         // 키워드를 UTF-8로 인코딩
-        String encodedKeyword = URLEncoder.encode(keyword, StandardCharsets.UTF_8.toString());
+        String encodedKeyword = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
         String url = NEWS_API_URL + "?query=" + encodedKeyword + "&display=5&sort=date";
 
         HttpURLConnection con = createConnection(url, null);

@@ -18,6 +18,7 @@ public class TrendAndNewsController {
     public TrendAndNewsController(TrendAndNewsService trendAndNewsService) {
         this.trendAndNewsService = trendAndNewsService;
     }
+
     @GetMapping("/top-trend-news")
     public Map<String, Object> getTopTrendNews() throws Exception {
         Map<String, Object> response = new HashMap<>();
