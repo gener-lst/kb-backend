@@ -1,5 +1,6 @@
 package com.kb.itisme.challenge.service;
 
+import com.kb.itisme.challenge.domain.Challenge;
 import com.kb.itisme.challenge.domain.ChallengeCommunity;
 import com.kb.itisme.challenge.repo.ChallengeCommunityRepository;
 import lombok.RequiredArgsConstructor;
