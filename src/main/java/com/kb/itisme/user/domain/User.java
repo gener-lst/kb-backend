@@ -1,7 +1,10 @@
 package com.kb.itisme.user.domain;
 
+import com.kb.itisme.challenge.domain.Payment;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,4 +26,7 @@ public class User {
 
     @Column(name = "name", nullable = false)
     private String userName;
+
+    @OneToMany(mappedBy = "user")
+    private List<Payment> payment;
 }

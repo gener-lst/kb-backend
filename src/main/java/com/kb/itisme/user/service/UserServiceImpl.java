@@ -8,6 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
+import java.util.Collections;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -17,7 +20,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO register() {
-        User newUser = new User(null, "user01", "Password1!", "김민철");
+        User newUser = new User(null, "user01", "Password1!", "김민철", Collections.emptyList());
         return UserDTO.ofDTO(userRepository.save(newUser));
     }
 
