@@ -59,7 +59,7 @@ public class YoutubeService {
         if (bestMatch != null) {
             String videoId = bestMatch.getSnippet().getResourceId().getVideoId();
             String videoTitle = bestMatch.getSnippet().getTitle();
-            return "Title: " + videoTitle + "\nURL: https://www.youtube.com/watch?v=" + videoId;
+            return videoTitle + "\nURL: https://www.youtube.com/watch?v=" + videoId;
         }
         return "질문과 유사한 동영상을 찾을 수 없습니다.";
     }

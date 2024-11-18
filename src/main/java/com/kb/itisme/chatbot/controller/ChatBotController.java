@@ -1,10 +1,12 @@
 package com.kb.itisme.chatbot.controller;
 
 import com.kb.itisme.chatbot.service.ChatBotService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/chatbot")
 public class ChatBotController {
 
