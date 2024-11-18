@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KB 스타뱅킹 챗봇</title>
+</head>
+<body>
+<h1>KB 스타뱅킹 챗봇</h1>
+<form id="chat-form" onsubmit="sendQuestion(event)">
+    <label for="question">질문을 입력하세요:</label>
+    <input type="text" id="question" name="question" required>
+    <button type="submit">질문하기</button>
+</form>
+<div id="response"></div>
+
+<script>
+    async function sendQuestion(event) {
+        event.preventDefault();
+        const question = document.getElementById('question').value;
+
+        const response = await fetch('/chatbot/ask', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `question=${encodeURIComponent(question)}`
+        });
+
+        const answer = await response.text();
+        document.getElementById('response').innerText = `챗봇 응답: ${answer}`;
+    }
+</script>
+</body>
+</html>
