@@ -1,6 +1,5 @@
 package com.kb.itisme.customPage.controller;
 
-import com.kb.itisme.customPage.dto.CustomCommunityDTO;
 import com.kb.itisme.customPage.dto.CustomPageDTO;
 import com.kb.itisme.customPage.service.CustomPageService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,15 +22,8 @@ public class CustomPageController {
     @GetMapping("/page")
     public ResponseEntity<CustomPageDTO> getCustomPage(HttpServletRequest request) {
         HttpSession session = request.getSession();
-//        session.setAttribute("userNum", 1L);
         Long userNum = (Long) session.getAttribute("userNum");
-        log.info("userNum = {}", userNum);
         return ResponseEntity.ok(customPageService.getCustomPage(userNum));
-    }
-
-    @GetMapping("/pages")
-    public ResponseEntity<List<CustomCommunityDTO>> getCustomPages(HttpServletRequest request) {
-        return ResponseEntity.ok(customPageService.getCustomPages());
     }
 
     @PostMapping("/page")
@@ -42,15 +34,8 @@ public class CustomPageController {
     @DeleteMapping("/page")
     public ResponseEntity<Void> resetCustomPage(HttpServletRequest request) {
         HttpSession session = request.getSession();
-//        session.setAttribute("userNum", 1L);
         Long userNum = (Long) session.getAttribute("userNum");
         customPageService.deleteCustomPage(userNum);
-        return ResponseEntity.noContent().build();
-    }
-
-    @PostMapping("/pages/heart/{pageID}")
-    public ResponseEntity<Void> heartCustomPage(HttpServletRequest request, @Valid @RequestParam Long pageID) {
-        customPageService.addHeart(pageID);
         return ResponseEntity.noContent().build();
     }
 }

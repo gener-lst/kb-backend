@@ -16,7 +16,7 @@ CREATE TABLE `product`
     `product_name` varchar(255) NULL,
     `image_path`   varchar(255) NULL,
     `product_url`  varchar(255) NULL,
-    `benefit` varchar(255) NULL,
+    `benefit`      varchar(255) NULL,
     `product_code` varchar(255) NULL
 );
 
@@ -24,7 +24,6 @@ CREATE TABLE `custom_page`
 (
     `page_id`     bigint(20)   NOT NULL auto_increment primary KEY,
     `user_number` bigint(20)   NOT NULL unique,
-    `page_name`   varchar(255) NULL,
     `layout_data` json         NULL,
     `image_url`   varchar(255) NULL,
     FOREIGN KEY (user_number) REFERENCES user (user_number)
@@ -36,15 +35,21 @@ CREATE TABLE `custom_page`
 # 	`y좌표`
 # 	`세로길이`
 # 	`가로길이`
+
+#   `여기부터는 선택`
 # 	`다중페이지번호`
 # 	`위젯이미지`
 # 	`위젯설정`?
 
 CREATE TABLE `custom_community`
 (
-    `page_id` bigint(20) NOT NULL primary KEY,
-    `heart`       bigint(20) NULL,
-    FOREIGN KEY (page_id) REFERENCES custom_page (page_id)
+    `shared_id`   bigint(20)   NOT NULL auto_increment primary KEY,
+    `user_number` bigint(20)   NOT NULL unique,
+    `page_name`   varchar(255) NULL,
+    `layout_data` json         NULL,
+    `image_url`   varchar(255) NULL,
+    `heart`       bigint(20)   NULL,
+    FOREIGN KEY (user_number) REFERENCES user (user_number)
 );
 
 CREATE TABLE `account`
