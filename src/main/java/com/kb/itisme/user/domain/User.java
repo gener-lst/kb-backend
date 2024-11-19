@@ -1,6 +1,5 @@
 package com.kb.itisme.user.domain;
 
-import com.kb.itisme.challenge.domain.Payment;
 import jakarta.persistence.*;
 import lombok.*;
 
