@@ -45,6 +45,5 @@ public class CustomCommunityServiceImpl implements CustomCommunityService {
         CustomCommunity sharedPage = CustomCommunityDTO.toEntity(customCommunityDTO);
 
         customCommunityRepository.save(sharedPage);
-        System.out.println("asdf");
     }
 }
