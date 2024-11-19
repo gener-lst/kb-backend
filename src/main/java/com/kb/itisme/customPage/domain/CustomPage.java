@@ -33,4 +33,8 @@ public class CustomPage {
 
     @Column(name = "image_url")
     private String imagePath;
+
+    @OneToOne
+    @JoinColumn(name = "page_id")
+    private CustomCommunity customCommunity;
 }
