@@ -1,6 +1,5 @@
 package com.kb.itisme.customPage.service;
 
-import com.kb.itisme.customPage.domain.CustomCommunity;
 import com.kb.itisme.customPage.domain.CustomPage;
 import com.kb.itisme.customPage.dto.CustomCommunityDTO;
 import com.kb.itisme.customPage.dto.CustomPageDTO;

@@ -26,7 +26,4 @@ public class User {
 
     @Column(name = "name", nullable = false)
     private String userName;
-
-    @OneToMany(mappedBy = "user")
-    private List<Payment> payment;
 }
