@@ -1,4 +1,4 @@
-package com.kb.itisme.customPage.domain;
+package com.kb.itisme.customCommunity.domain;
 
 import com.kb.itisme.common.util.JsonConverter;
 import jakarta.persistence.*;
@@ -13,16 +13,19 @@ import java.util.Map;
 @AllArgsConstructor
 @Getter
 @Entity
-@Table(name = "custom_page")
+@Table(name = "custom_community")
 @Builder
-public class CustomPage {
+public class CustomCommunity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "page_id")
-    private Long pageID;
+    @Column(name = "shared_id")
+    private Long sharedID;
 
     @Column(name = "user_number", unique = true, nullable = false)
     private Long userNum;
+
+    @Column(name = "page_name")
+    private String pageName;
 
     @Convert(converter = JsonConverter.class)
     @Column(name = "layout_data")
@@ -30,4 +33,7 @@ public class CustomPage {
 
     @Column(name = "image_url")
     private String imagePath;
+
+    @Column(name = "heart")
+    private Long heart;
 }

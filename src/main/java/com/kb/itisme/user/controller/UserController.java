@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,16 +20,30 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<UserDTO> register() {
-        return ResponseEntity.ok(userService.register());
+    public ResponseEntity<?> register() {
+        try {
+            UserDTO userDTO = userService.register();
+            return ResponseEntity.ok(userDTO);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원가입 중 문제가 발생했습니다.");
+        }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserDTO> login(HttpServletRequest request) {
+    public ResponseEntity<?> login(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        UserDTO user = userService.login();
-        session.setAttribute("user", user);
-        return ResponseEntity.ok(user);
+
+        try {
+            UserDTO user = userService.login();
+            session.setAttribute("user", user);
+            return ResponseEntity.ok(user);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("로그인 중 문제가 발생했습니다.");
+        }
     }
 
     @PostMapping("/logout")

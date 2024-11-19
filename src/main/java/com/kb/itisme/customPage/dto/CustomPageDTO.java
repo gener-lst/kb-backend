@@ -13,7 +13,6 @@ import java.util.Map;
 public class CustomPageDTO {
     private Long pageID;
     private Long userNum;
-    private String pageName;
     private Map<String, String> layoutData;
     private String imagePath;
 
@@ -21,7 +20,6 @@ public class CustomPageDTO {
         return customPage == null ? null : CustomPageDTO.builder()
                 .pageID(customPage.getPageID())
                 .userNum(customPage.getUserNum())
-                .pageName(customPage.getPageName())
                 .layoutData(customPage.getLayoutData())
                 .imagePath(customPage.getImagePath())
                 .build();
@@ -31,7 +29,6 @@ public class CustomPageDTO {
         return CustomPage.builder()
                 .pageID(customPageDTO.getPageID())
                 .userNum(customPageDTO.getUserNum())
-                .pageName(customPageDTO.getPageName())
                 .layoutData(customPageDTO.getLayoutData())
                 .imagePath(customPageDTO.getImagePath())
                 .build();
