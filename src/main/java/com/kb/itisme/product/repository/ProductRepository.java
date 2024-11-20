@@ -32,5 +32,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByBenefitContainingKeyword(@Param("keyword") String keyword);
 
     // benefit에 특정 키워드가 포함된 상품 검색 (SQL 기본 검색)
-    List<Product> findByBenefitContainingIgnoreCase(String keyword);
+    List<Product> findByBenefitContainingIgnoreCaseAndProductType(String keyword, String productType);
+
 }

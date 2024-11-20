@@ -47,6 +47,8 @@ public enum KeywordGroup {
             "삼성 페이", "간편결제", "온라인 간편결제", "AI", "클라우드", "디지털",
             "모바일", "혁신", "가상현실", "로봇", "5G")); // 11개로 제한
 
+
+
     private final String groupName;
     private final List<String> keywords;
 
