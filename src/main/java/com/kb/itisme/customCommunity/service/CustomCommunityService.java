@@ -9,5 +9,5 @@ public interface CustomCommunityService {
     List<CustomCommunityDTO> getCustomPages();
     void addHeart(Long sharedID);
     void shareCustomPage(CustomPageDTO customPageDTO, String pageName);
-    CustomCommunityDTO downloadCustomPage(Long shareID);
+    CustomPageDTO downloadCustomPage(Long shareID);
 }
