@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.Collections;
 
 @Service
@@ -20,12 +19,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO register() {
-        User newUser = new User(null, "user01", "Password1!", "김민철", Collections.emptyList());
+        if(userRepository.findByUserId("user01").isPresent()) throw new IllegalArgumentException("중복된 회원가입 요청입니다.");
+        User newUser = new User(null, "user01", "Password1!", "김민철");
         return UserDTO.ofDTO(userRepository.save(newUser));
     }
 
     @Override
     public UserDTO login() {
-        return UserDTO.ofDTO(userRepository.findById(1L).get());
+        return userRepository.findByUserId("user01")
+                .map(UserDTO::ofDTO)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
     }
 }

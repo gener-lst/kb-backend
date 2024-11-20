@@ -1,6 +1,7 @@
 package com.kb.itisme.trend.service;
 
 import com.kb.itisme.trend.dto.KeywordGroup;
+import com.kb.itisme.trend.dto.SavingsKeywordGroup;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -19,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 @Service
-public class TrendAndNewsService {
+public class SavingTrendService {
 
     @Value("${naver.client-id}")
     private String clientId;
@@ -77,13 +78,13 @@ public class TrendAndNewsService {
         LocalDate startDate = endDate.minusDays(7);
 
         Map<String, String> keywordsWithGroupNames = new HashMap<>();
-        List<KeywordGroup> allGroups = List.of(KeywordGroup.values());
+        List<SavingsKeywordGroup> allGroups = List.of(SavingsKeywordGroup.values());
 
         for (int i = 0; i < allGroups.size(); i += 5) {
-            List<KeywordGroup> currentGroups = allGroups.subList(i, Math.min(i + 5, allGroups.size()));
+            List<SavingsKeywordGroup> currentGroups = allGroups.subList(i, Math.min(i + 5, allGroups.size()));
 
             StringBuilder groupsJson = new StringBuilder();
-            for (KeywordGroup group : currentGroups) {
+            for (SavingsKeywordGroup group : currentGroups) {
                 String keywordsJson = group.getKeywords().stream()
                         .map(keyword -> "\"" + keyword + "\"")
                         .reduce((kw1, kw2) -> kw1 + ", " + kw2)
@@ -176,6 +177,4 @@ public class TrendAndNewsService {
 
         return response;
     }
-
-
 }

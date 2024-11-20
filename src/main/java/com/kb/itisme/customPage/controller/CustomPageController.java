@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/custom")
 @RequiredArgsConstructor
@@ -20,9 +22,7 @@ public class CustomPageController {
     @GetMapping("/page")
     public ResponseEntity<CustomPageDTO> getCustomPage(HttpServletRequest request) {
         HttpSession session = request.getSession();
-//        session.setAttribute("userNum", 1L);
         Long userNum = (Long) session.getAttribute("userNum");
-        log.info("userNum = {}", userNum);
         return ResponseEntity.ok(customPageService.getCustomPage(userNum));
     }
 
@@ -34,7 +34,6 @@ public class CustomPageController {
     @DeleteMapping("/page")
     public ResponseEntity<Void> resetCustomPage(HttpServletRequest request) {
         HttpSession session = request.getSession();
-//        session.setAttribute("userNum", 1L);
         Long userNum = (Long) session.getAttribute("userNum");
         customPageService.deleteCustomPage(userNum);
         return ResponseEntity.noContent().build();
