@@ -2,12 +2,14 @@ package com.kb.itisme.user.controller;
 
 import com.kb.itisme.user.DTO.UserDTO;
 import com.kb.itisme.user.service.UserService;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,6 +45,21 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("로그인 중 문제가 발생했습니다.");
+        }
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<?> getInfo(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Long userNum = (Long) session.getAttribute("userNum");
+
+        try {
+            UserDTO user = userService.getUserInfo(userNum);
+            return ResponseEntity.ok(user);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("유저 정보를 가져올 수 없습니다.");
         }
     }
 

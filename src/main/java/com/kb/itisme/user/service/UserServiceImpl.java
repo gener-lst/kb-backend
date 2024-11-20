@@ -30,4 +30,11 @@ public class UserServiceImpl implements UserService {
                 .map(UserDTO::ofDTO)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
     }
+
+    @Override
+    public UserDTO getUserInfo(Long userNum) {
+        return userRepository.findById(userNum)
+                .map(UserDTO::ofDTO)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+    }
 }
