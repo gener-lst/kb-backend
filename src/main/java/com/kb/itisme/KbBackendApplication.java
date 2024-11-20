@@ -1,18 +1,30 @@
 package com.kb.itisme;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
-import jakarta.annotation.PostConstruct;
+import com.kb.itisme.user.controller.UserController;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @SpringBootApplication
-public class KbBackendApplication {
+public class KbBackendApplication implements CommandLineRunner {
+
+	private final UserController userController;
+
+	public KbBackendApplication(UserController userController) {
+		this.userController = userController;
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(KbBackendApplication.class, args);
 	}
 
+	@Override
+	public void run(String... args) {
+		try {
+			// 회원가입 호출
+			userController.register();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
