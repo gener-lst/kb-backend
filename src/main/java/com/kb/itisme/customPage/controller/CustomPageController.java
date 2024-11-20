@@ -28,6 +28,9 @@ public class CustomPageController {
 
     @PostMapping("/page")
     public ResponseEntity<CustomPageDTO> saveCustomPage(HttpServletRequest request, @Valid @RequestBody CustomPageDTO customPageDTO) {
+        HttpSession session = request.getSession();
+        Long userNum = (Long) session.getAttribute("userNum");
+        customPageDTO.setUserNum(userNum);
         return ResponseEntity.ok(customPageService.saveCustomPage(customPageDTO));
     }
 
