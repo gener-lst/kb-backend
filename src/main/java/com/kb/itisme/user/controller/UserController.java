@@ -48,21 +48,6 @@ public class UserController {
         }
     }
 
-    @GetMapping("/info")
-    public ResponseEntity<?> getInfo(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        Long userNum = (Long) session.getAttribute("userNum");
-
-        try {
-            UserDTO user = userService.getUserInfo(userNum);
-            return ResponseEntity.ok(user);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("유저 정보를 가져올 수 없습니다.");
-        }
-    }
-
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
