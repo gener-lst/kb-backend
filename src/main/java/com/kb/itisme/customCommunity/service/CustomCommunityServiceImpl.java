@@ -46,4 +46,11 @@ public class CustomCommunityServiceImpl implements CustomCommunityService {
 
         customCommunityRepository.save(sharedPage);
     }
+
+    @Override
+    public CustomCommunityDTO downloadCustomPage(Long shareID) {
+        return customCommunityRepository.findById(shareID)
+                .map(entity -> CustomCommunityDTO.ofDTO(entity)) // 엔티티를 DTO로 변환
+                .orElseThrow(() -> new IllegalArgumentException("해당 페이지를 불러올 수 없습니다."));
+    }
 }
