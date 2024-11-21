@@ -37,11 +37,8 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-
         try {
             UserDTO user = userService.login();
-            session.setAttribute("userNum", user.getUserNum());
             return ResponseEntity.ok(user);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
@@ -53,8 +50,6 @@ public class UserController {
 
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        session.removeAttribute("userNum");
         return ResponseEntity.noContent().build();
     }
 }
