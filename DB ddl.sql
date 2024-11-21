@@ -44,7 +44,7 @@ CREATE TABLE `custom_page`
 CREATE TABLE `custom_community`
 (
     `shared_id`   bigint(20)   NOT NULL auto_increment primary KEY,
-    `user_number` bigint(20)   NOT NULL unique,
+    `user_number` bigint(20)   NOT NULL,
     `page_name`   varchar(255) NULL,
     `layout_data` json         NULL,
     `image_url`   varchar(255) NULL,
