@@ -17,11 +17,10 @@ public class ImageService {
     @Value("${image.directory}")
     private String imageDirectory;
 
-    public void saveCapturedImage(Long sharedID, String base64Image, Long userNum) throws IOException {
+    public String saveCapturedImage(Long sharedID, String base64Image, Long userNum) throws IOException {
         // Base64 문자열에서 데이터 추출
         String base64Data = base64Image.split(",")[1];
         byte[] imageBytes = Base64.getDecoder().decode(base64Data);
-
 
         // 이미지 파일 이름 생성 (예: userNum_pageID_timestamp.png)
         String fileName = "user" + userNum + "_page" + sharedID + "_" + System.currentTimeMillis() + ".jpeg";
@@ -33,6 +32,7 @@ public class ImageService {
         createDirectoryIfNotExists(imageDirectory);
         try (FileOutputStream fos = new FileOutputStream(filePath)) {
             fos.write(imageBytes);
+            return fileName;
         } catch (IOException e) {
             throw new RuntimeException("이미지 저장 실패: " + e.getMessage());
         }
