@@ -20,9 +20,7 @@ public class CustomPageController {
     private final CustomPageService customPageService;
 
     @GetMapping("/page")
-    public ResponseEntity<CustomPageDTO> getCustomPage(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        Long userNum = (Long) session.getAttribute("userNum");
+    public ResponseEntity<CustomPageDTO> getCustomPage(HttpServletRequest request, @Valid @RequestParam Long userNum) {
         return ResponseEntity.ok(customPageService.getCustomPage(userNum));
     }
 
@@ -32,9 +30,7 @@ public class CustomPageController {
     }
 
     @DeleteMapping("/page")
-    public ResponseEntity<Void> resetCustomPage(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        Long userNum = (Long) session.getAttribute("userNum");
+    public ResponseEntity<Void> resetCustomPage(HttpServletRequest request, @Valid @RequestParam Long userNum) {
         customPageService.deleteCustomPage(userNum);
         return ResponseEntity.noContent().build();
     }
