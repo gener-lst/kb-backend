@@ -53,7 +53,7 @@ public class AccountServiceImpl implements AccountService {
     public AccountDTO getWithdrawalAccount(Long userNum) {
         List<Account> accounts = accountRepository.findByUserNumber(userNum);
         for (Account account : accounts) {
-            if (account.getAccountType().equals("예적금")) {
+            if (account.getAccountType().equals("입출금")) {
                 return AccountDTO.ofDTO(account);
             }
         }

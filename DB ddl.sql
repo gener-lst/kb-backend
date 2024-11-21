@@ -24,7 +24,7 @@ CREATE TABLE `custom_page`
 (
     `page_id`     bigint(20)   NOT NULL auto_increment primary KEY,
     `user_number` bigint(20)   NOT NULL unique,
-    `layout_data` json         NULL,
+    `layout_data` longtext     NULL,
     `image_url`   varchar(255) NULL,
     FOREIGN KEY (user_number) REFERENCES user (user_number)
 );
@@ -46,7 +46,7 @@ CREATE TABLE `custom_community`
     `shared_id`   bigint(20)   NOT NULL auto_increment primary KEY,
     `user_number` bigint(20)   NOT NULL,
     `page_name`   varchar(255) NOT NULL,
-    `layout_data` json         NULL,
+    `layout_data` longtext     NULL,
     `image_url`   varchar(255) NULL,
     `heart`       bigint(20)   NULL,
     FOREIGN KEY (user_number) REFERENCES user (user_number)
@@ -308,6 +308,58 @@ VALUES (86, '1', 'WE:SH All 카드', 'https://img1.kbcard.com/ST/img/cxc/kbcard/
         'https://m.kbcard.com/CRD/DVIEW/MCAMCXHIACRC0002?mainCC=a&cooperationcode=09084',
         '카드사용알림서비스(SMS), \n연회비, \n클린카드 기능, \n', '09084');
 
+-- 1. 사회초년생
+INSERT INTO `product` (`product_type`, `product_name`, `benefit`, `image_path`, `product_url`, `product_code`)
+VALUES ('2', 'KB국민첫재테크적금', '사회초년생, 기간: 36개월, 이율: 연 2.75% ~ 3.25%', NULL, NULL, NULL),
+       ('2', 'KB국민행복적금', '사회초년생, 기간: 12개월, 이율: 연 3.5% ~ 5.5%', NULL, NULL, NULL);
+
+-- 2. 직장인
+INSERT INTO `product` (`product_type`, `product_name`, `benefit`, `image_path`, `product_url`, `product_code`)
+VALUES ('2', '직장인우대적금', '직장인, 기간: 36개월, 이율: 연 3.55% ~ 4.05%', NULL, NULL, NULL),
+       ('2', 'KB국민프리미엄적금 (자유적립식)', '직장인, 기간: 60개월, 이율: 연 2.9% ~ 4.2%', NULL, NULL, NULL);
+
+-- 3. 어린이, 청소년
+INSERT INTO `product` (`product_type`, `product_name`, `benefit`, `image_path`, `product_url`, `product_code`)
+VALUES ('2', 'KB Young Youth 적금', '어린이, 청소년, 기간: 12개월, 이율: 연 2.1% ~ 3.4%', NULL, NULL, NULL),
+       ('2', 'KB아이사랑적금 NEW', '어린이, 청소년, 기간: 12개월, 이율: 연 2% ~ 10%', NULL, NULL, NULL);
+
+-- 4. 특별, 맞춤형
+INSERT INTO `product` (`product_type`, `product_name`, `benefit`, `image_path`, `product_url`, `product_code`)
+VALUES ('2', 'KB내맘대로적금', '특별, 맞춤형, 기간: 36개월, 이율: 연 3.15% ~ 3.75%', NULL, NULL, NULL),
+       ('2', 'KB특★한 적금', '특별, 맞춤형, 기간: 1개월, 이율: 연 2% ~ 6%', NULL, NULL, NULL),
+       ('2', 'KB국민프리미엄적금 (정액적립식)', '특별, 맞춤형, 기간: 60개월, 이율: 연 3% ~ 4.3%', NULL, NULL, NULL);
+
+-- 5. 목돈
+INSERT INTO `product` (`product_type`, `product_name`, `benefit`, `image_path`, `product_url`, `product_code`)
+VALUES ('2', 'KB상호부금(자유적립식)', '목돈, 기간: 36개월, 이율: 연 2.9% ~ 3.3%', NULL, NULL, NULL),
+       ('2', 'KB상호부금(정액적립식)', '목돈, 기간: 36개월, 이율: 연 3% ~ 3.4%', NULL, NULL, NULL);
+
+-- 6. 재테크
+INSERT INTO `product` (`product_type`, `product_name`, `benefit`, `image_path`, `product_url`, `product_code`)
+VALUES ('2', 'KB스타적금Ⅱ NEW', '재테크, 기간: 12개월, 이율: 연 2% ~ 8%', NULL, NULL, NULL),
+       ('2', 'KB차차차 적금', '재테크, 기간: 12개월, 이율: 연 2.5% ~ 8%', NULL, NULL, NULL);
+
+-- 7. 미래
+INSERT INTO `product` (`product_type`, `product_name`, `benefit`, `image_path`, `product_url`, `product_code`)
+VALUES ('2', 'KB장병내일준비적금', '미래, 기간: 24개월, 이율: 연 5% ~ 8%', NULL, NULL, NULL),
+       ('2', 'KB청년도약계좌', '미래, 기간: 60개월, 이율: 연 4.5% ~ 6%', NULL, NULL, NULL);
+
+-- 8. 건강
+INSERT INTO `product` (`product_type`, `product_name`, `benefit`, `image_path`, `product_url`, `product_code`)
+VALUES ('2', '온국민 건강적금', '건강, 기간: 6개월, 이율: 연 2% ~ 8%', NULL, NULL, NULL),
+       ('2', '온국민 건강적금-골든라이프', '건강, 기간: 6개월, 이율: 연 2% ~ 10%', NULL, NULL, NULL);
+
+-- 9. 반려동물
+INSERT INTO `product` (`product_type`, `product_name`, `benefit`, `image_path`, `product_url`, `product_code`)
+VALUES ('2', 'KB반려행복적금', '반려동물, 기간: 36개월, 이율: 연 3.25% ~ 4.75%', NULL, NULL, NULL);
+
+-- 10. 여행
+INSERT INTO `product` (`product_type`, `product_name`, `benefit`, `image_path`, `product_url`, `product_code`)
+VALUES ('2', 'KB두근두근여행적금', '여행 노랑풍선 할인쿠폰, 기간: 6개월, 이율: 연 2.65% ~ 3.65%', NULL, NULL, NULL);
+
+
 Insert INTO account
 VALUES (33333322111111, 1, '입출금', 1000000),
        (22222211333333, 2, '입출금', 0);
+
+INSERT INTO `custom_community` VALUES (1,1,'민철이랑 놀아요','[{\"x\":0,\"y\":100,\"id\":\"4\",\"name\":\"1x1\",\"component\":\"Exchange1x1\"},{\"h\":100,\"w\":90,\"x\":0,\"y\":0,\"id\":\"1\",\"name\":\"1x1\",\"component\":\"Account1x1\"}]','C1.png',1),(2,1,'용우랑','[{\"x\":0,\"y\":100,\"id\":\"4\",\"name\":\"1x1\",\"component\":\"Exchange1x1\"},{\"h\":100,\"w\":90,\"x\":0,\"y\":0,\"id\":\"1\",\"name\":\"1x1\",\"component\":\"Account1x1\"}]','C2.png',1),(3,2,'소진이랑','[{\"x\":0,\"y\":100,\"id\":\"4\",\"name\":\"1x1\",\"component\":\"Exchange1x1\"},{\"h\":100,\"w\":90,\"x\":0,\"y\":0,\"id\":\"1\",\"name\":\"1x1\",\"component\":\"Account1x1\"}]','C3.png',1),(4,1,'수대랑','[{\"x\":0,\"y\":100,\"id\":\"4\",\"name\":\"1x1\",\"component\":\"Exchange1x1\"},{\"h\":100,\"w\":90,\"x\":0,\"y\":0,\"id\":\"1\",\"name\":\"1x1\",\"component\":\"Account1x1\"}]','C4.png',1),(5,2,'종수랑','[{\"x\":0,\"y\":100,\"id\":\"4\",\"name\":\"1x1\",\"component\":\"Exchange1x1\"},{\"h\":100,\"w\":90,\"x\":0,\"y\":0,\"id\":\"1\",\"name\":\"1x1\",\"component\":\"Account1x1\"}]','C5.png',1),(6,1,'학민이랑','[{\"x\":0,\"y\":100,\"id\":\"4\",\"name\":\"1x1\",\"component\":\"Exchange1x1\"},{\"h\":100,\"w\":90,\"x\":0,\"y\":0,\"id\":\"1\",\"name\":\"1x1\",\"component\":\"Account1x1\"}]','C6.png',1);

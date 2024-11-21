@@ -22,7 +22,7 @@ public class CustomCommunity {
     @Column(name = "shared_id")
     private Long sharedID;
 
-    @Column(name = "user_number", unique = true, nullable = false)
+    @Column(name = "user_number", nullable = false)
     private Long userNum;
 
     @Column(name = "page_name")

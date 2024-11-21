@@ -23,7 +23,6 @@ public class AccountController {
 
     @GetMapping("/list")
     public ResponseEntity<List<AccountDTO>> getListAccount(HttpServletRequest request, @RequestParam Long userNum) {
-
         List<AccountDTO> accounts = accountService.AccountsByUserNumber(userNum);
         return ResponseEntity.ok(accounts);
 
