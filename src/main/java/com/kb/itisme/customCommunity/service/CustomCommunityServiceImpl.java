@@ -48,7 +48,7 @@ public class CustomCommunityServiceImpl implements CustomCommunityService {
     }
 
     @Override
-    public CustomPageDTO downloadCustomPage(Long shareID) {
+    public CustomCommunityDTO downloadCustomPage(Long shareID) {
        CustomCommunityDTO customCommunityDTO = customCommunityRepository.findById(shareID)
                 .map(entity -> CustomCommunityDTO.ofDTO(entity)) // 엔티티를 DTO로 변환
                 .orElseThrow(() -> new IllegalArgumentException("해당 페이지를 불러올 수 없습니다."));
@@ -58,6 +58,6 @@ public class CustomCommunityServiceImpl implements CustomCommunityService {
        customPageDTO.setLayoutData(customCommunityDTO.getLayoutData());
        customPageDTO.setImagePath(customCommunityDTO.getImagePath());
 
-       return customPageDTO;
+       return customCommunityDTO;
     }
 }
