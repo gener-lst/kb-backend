@@ -20,8 +20,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO register() {
         if(userRepository.findByUserId("user01").isPresent()) throw new IllegalArgumentException("중복된 회원가입 요청입니다.");
-        User newUser = new User(null, "user01", "Password1!", "김민철");
-        return UserDTO.ofDTO(userRepository.save(newUser));
+        if(userRepository.findByUserId("user02").isPresent()) throw new IllegalArgumentException("중복된 회원가입 요청입니다.");
+        User user1 = new User(null, "user01", "Password1!", "김민철");
+        User user2 = new User(null, "user02", "Password1!", "김종수");
+        UserDTO newUser = UserDTO.ofDTO(userRepository.save(user1));
+        userRepository.save(user2);
+        return newUser;
     }
 
     @Override
