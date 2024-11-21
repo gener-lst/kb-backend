@@ -57,8 +57,8 @@ public class CustomCommunityController {
     @PostMapping("/capture")
     public ResponseEntity<String> saveCapturedImage(@RequestBody CustomCommunityDTO customCommunityDTO) {
         try {
-            imageService.saveCapturedImage(customCommunityDTO.getSharedID(), customCommunityDTO.getImagePath(), customCommunityDTO.getUserNum());
-            return ResponseEntity.status(HttpStatus.CREATED).body("화면 캡쳐가 성공적으로 저장되었습니다.");
+            String fileName = imageService.saveCapturedImage(customCommunityDTO.getSharedID(), customCommunityDTO.getImagePath(), customCommunityDTO.getUserNum());
+            return ResponseEntity.status(HttpStatus.CREATED).body(fileName);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
