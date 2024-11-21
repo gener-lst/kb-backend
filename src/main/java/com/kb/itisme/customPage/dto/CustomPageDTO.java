@@ -3,6 +3,7 @@ package com.kb.itisme.customPage.dto;
 import com.kb.itisme.customPage.domain.CustomPage;
 import lombok.*;
 
+import java.util.List;
 import java.util.Map;
 
 @NoArgsConstructor
@@ -13,7 +14,7 @@ import java.util.Map;
 public class CustomPageDTO {
     private Long pageID;
     private Long userNum;
-    private Map<String, String> layoutData;
+    private List<Map<String, Object>> layoutData;
     private String imagePath;
 
     public static CustomPageDTO ofDTO(CustomPage customPage) {

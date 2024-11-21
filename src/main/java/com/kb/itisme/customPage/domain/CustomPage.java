@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Map;
 
 @NoArgsConstructor
@@ -26,7 +27,7 @@ public class CustomPage {
 
     @Convert(converter = JsonConverter.class)
     @Column(name = "layout_data")
-    private Map<String, String> layoutData;
+    private List<Map<String, Object>> layoutData;
 
     @Column(name = "image_url")
     private String imagePath;

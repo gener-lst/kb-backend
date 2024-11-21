@@ -4,6 +4,7 @@ import com.kb.itisme.customCommunity.domain.CustomCommunity;
 import com.kb.itisme.customPage.domain.CustomPage;
 import lombok.*;
 
+import java.util.List;
 import java.util.Map;
 
 @NoArgsConstructor
@@ -15,7 +16,7 @@ public class CustomCommunityDTO {
     private Long sharedID;
     private Long userNum;
     private String pageName;
-    private Map<String, String> layoutData;
+    private List<Map<String, Object>> layoutData;
     private String imagePath;
     private Long heart;
 

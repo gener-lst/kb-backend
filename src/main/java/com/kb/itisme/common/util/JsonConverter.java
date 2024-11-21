@@ -10,16 +10,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
 @Converter
 @Slf4j
-public class JsonConverter implements AttributeConverter<Map<String, String>, String> {
+public class JsonConverter implements AttributeConverter<List<Map<String, Object>>, String> {
     private final ObjectMapper objectMapper;
 
     @Override
-    public String convertToDatabaseColumn(Map<String, String> attribute) {
+    public String convertToDatabaseColumn(List<Map<String, Object>> attribute) {
         if (CollectionUtils.isEmpty(attribute)) {
             return null;
         }
@@ -33,7 +34,7 @@ public class JsonConverter implements AttributeConverter<Map<String, String>, St
     }
 
     @Override
-    public Map<String, String> convertToEntityAttribute(String dbData) {
+    public List<Map<String, Object>> convertToEntityAttribute(String dbData) {
         if (!StringUtils.hasText(dbData)) {
             return null;
         }
