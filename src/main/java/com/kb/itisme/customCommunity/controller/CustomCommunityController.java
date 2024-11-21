@@ -2,12 +2,14 @@ package com.kb.itisme.customCommunity.controller;
 
 import com.kb.itisme.customCommunity.dto.CustomCommunityDTO;
 import com.kb.itisme.customCommunity.service.CustomCommunityService;
+import com.kb.itisme.customCommunity.service.ImageService;
 import com.kb.itisme.customPage.dto.CustomPageDTO;
 import com.kb.itisme.user.DTO.UserDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,9 @@ import java.util.List;
 @Slf4j
 public class CustomCommunityController {
     private final CustomCommunityService customCommunityService;
+
+    @Autowired
+    private ImageService imageService;
 
     @GetMapping("/pages")
     public ResponseEntity<List<CustomCommunityDTO>> getCustomPages(HttpServletRequest request) {
@@ -44,8 +49,20 @@ public class CustomCommunityController {
     }
 
     @PostMapping("/pages/heart")
-    public ResponseEntity<Void> heartCustomPage(HttpServletRequest request, @Valid @RequestParam Long sharedID) {
+    public ResponseEntity<Void> heartCustomPage(HttpServletRequest request, @RequestParam Long sharedID) {
         customCommunityService.addHeart(sharedID);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/capture")
+    public ResponseEntity<String> saveCapturedImage(@RequestBody CustomCommunityDTO customCommunityDTO) {
+        try {
+            imageService.saveCapturedImage(customCommunityDTO.getSharedID(), customCommunityDTO.getImagePath(), customCommunityDTO.getUserNum());
+            return ResponseEntity.status(HttpStatus.CREATED).body("화면 캡쳐가 성공적으로 저장되었습니다.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("화면 캡쳐를 저장하는 도중 문제가 발생했습니다.");
+        }
     }
 }
