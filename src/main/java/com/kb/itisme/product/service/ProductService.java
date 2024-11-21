@@ -179,4 +179,9 @@ public class ProductService {
         }
         return benefitText;
     }
+
+    public List<Product> searchProducts(String query) {
+        // 검색어 트림 처리
+        return productRepository.findByProductNameContainingIgnoreCase(query.trim());
+    }
 }
