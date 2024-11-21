@@ -7,10 +7,15 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/custom")
@@ -32,6 +37,13 @@ public class CustomPageController {
     @DeleteMapping("/page")
     public ResponseEntity<Void> resetCustomPage(HttpServletRequest request, @Valid @RequestParam Long userNum) {
         customPageService.deleteCustomPage(userNum);
+        return ResponseEntity.noContent().build();
+    }
+    
+
+    @PostMapping("/fileUpload")
+    public ResponseEntity<Void> fileUpload(@RequestParam String fileName, @RequestParam Long userNum){
+        customPageService.updateImagePath(fileName, userNum);
         return ResponseEntity.noContent().build();
     }
 }

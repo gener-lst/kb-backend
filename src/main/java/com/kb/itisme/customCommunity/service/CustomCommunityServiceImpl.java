@@ -33,7 +33,7 @@ public class CustomCommunityServiceImpl implements CustomCommunityService {
 
     @Override
     public void shareCustomPage(CustomPageDTO customPageDTO, String pageName) {
-        if(customCommunityRepository.findById(customPageDTO.getUserNum()).isPresent()) throw new IllegalArgumentException("이미 공유된 페이지입니다.");
+//        if(customCommunityRepository.findById(customPageDTO.getUserNum()).isPresent()) throw new IllegalArgumentException("이미 공유된 페이지입니다.");
 
         CustomCommunityDTO customCommunityDTO = new CustomCommunityDTO();
         customCommunityDTO.setUserNum(customPageDTO.getUserNum());
