@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(("/api/account"))
 @RequiredArgsConstructor
@@ -19,12 +21,18 @@ import org.springframework.web.bind.annotation.*;
 public class AccountController {
     private final AccountService accountService;
 
-    @GetMapping("/{accountNumber}")
-    public ResponseEntity<AccountDTO> getAccount(HttpServletRequest request, @PathVariable Long accountNumber) {
+    @GetMapping("/list")
+    public ResponseEntity<List<AccountDTO>> getListAccount(HttpServletRequest request, @RequestParam Long userNum) {
 
-        return  ResponseEntity.ok(accountService.getAccount(accountNumber));
+        List<AccountDTO> accounts = accountService.AccountsByUserNumber(userNum);
+        return ResponseEntity.ok(accounts);
 
-         }
+    }
+
+    @GetMapping()
+    public ResponseEntity<AccountDTO> getWithdrawalAccount(HttpServletRequest request, @RequestParam Long userNum) {
+        return ResponseEntity.ok(accountService.getWithdrawalAccount(userNum));
+    }
 
     @PostMapping("/transfer")
     public ResponseEntity<AccountDTO> transfer(@RequestBody AccountDTO accountDTO) {
