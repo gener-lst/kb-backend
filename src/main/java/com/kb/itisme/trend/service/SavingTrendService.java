@@ -1,6 +1,5 @@
 package com.kb.itisme.trend.service;
 
-import com.kb.itisme.trend.dto.KeywordGroup;
 import com.kb.itisme.trend.dto.SavingsKeywordGroup;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,6 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 @Service
 public class SavingTrendService {

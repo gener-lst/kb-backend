@@ -101,4 +101,18 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/searchProducts")
+    public ResponseEntity<?> searchProducts(@RequestParam String query) {
+        if (query == null || query.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("검색어를 입력해주세요.");
+        }
+
+        List<Product> products = productService.searchProducts(query);
+        if (products.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(products);
+    }
+
 }

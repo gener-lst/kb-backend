@@ -1,10 +1,12 @@
 package com.kb.itisme.trend.controller;
 
+import com.kb.itisme.product.dto.Product;
 import com.kb.itisme.trend.service.SavingTrendService;
 import com.kb.itisme.trend.service.TrendAndNewsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -100,6 +102,8 @@ public class TrendAndNewsController {
 
         return response;
     }
+
+
 
 }
 
