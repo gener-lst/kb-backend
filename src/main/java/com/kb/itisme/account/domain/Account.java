@@ -17,5 +17,5 @@ public class Account {
     @Column(name="user_number")
     private Long userNumber;
     private String accountType;
-    private Long balance;
+        private Long balance;
 }

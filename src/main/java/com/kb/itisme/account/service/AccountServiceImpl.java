@@ -3,11 +3,15 @@ package com.kb.itisme.account.service;
 import com.kb.itisme.account.DTO.AccountDTO;
 import com.kb.itisme.account.domain.Account;
 import com.kb.itisme.account.repository.AccountRepository;
+import com.kb.itisme.customCommunity.dto.CustomCommunityDTO;
 import com.kb.itisme.customPage.domain.CustomPage;
 import com.kb.itisme.customPage.dto.CustomPageDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -17,9 +21,8 @@ public class AccountServiceImpl implements AccountService {
 
 
     @Override
-    public AccountDTO getAccount(Long accountNumber) {
-        return AccountDTO.ofDTO(accountRepository.findById(accountNumber).orElseThrow());
-    }
+    public List<AccountDTO> AccountsByUserNumber(Long userNum) {
+        return accountRepository.findByUserNumber(userNum).stream().map(AccountDTO::ofDTO).toList();    }
 
     @Override
     public AccountDTO transfer(AccountDTO accountDTO) {
@@ -46,4 +49,14 @@ public class AccountServiceImpl implements AccountService {
         return AccountDTO.ofDTO(senderAccount);
     }
 
+    @Override
+    public AccountDTO getWithdrawalAccount(Long userNum) {
+        List<Account> accounts = accountRepository.findByUserNumber(userNum);
+        for (Account account : accounts) {
+            if (account.getAccountType().equals("예적금")) {
+                return AccountDTO.ofDTO(account);
+            }
+        }
+        return null;
+    }
 }
